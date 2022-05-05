@@ -1,152 +1,152 @@
 package netdesk;
 
 public class Anuncio {
-    private int ID;
-    private String CPF;
-    private String Titulo;
-    private String Descricao;
-    private String Valor;
-    private String CPU;
-    private String RAM;
-    private String GPU;
-    private String SO;
-    private String Armazenamento;
-    private String Pais;
-    private String Cidade;
-    private String Estado;
-    private String Situacao;
+    private int id;
+    private String cpf;
+    private String titulo;
+    private String descricao;
+    private String valor;
+    private String cpu;
+    private String ram;
+    private String gpu;
+    private String so;
+    private String armazenamento;
+    private String pais;
+    private String cidade;
+    private String estado;
+    private String situacao;
     
     public Anuncio(){
-        ID = -1;
-        CPF = "";
-        Titulo = "";
-        Descricao = "";
-        Valor = "";
-        CPU = "";
-        RAM = "";
-        GPU = "";
-        SO = "";
-        Armazenamento = "";
-        Pais = "";
-        Cidade = "";
-        Estado = "";
-        Situacao = "";
+        id = -1;
+        cpf = "";
+        titulo = "";
+        descricao = "";
+        valor = "";
+        cpu = "";
+        ram = "";
+        gpu = "";
+        so = "";
+        armazenamento = "";
+        pais = "";
+        cidade = "";
+        estado = "";
+        situacao = "";
     }
 
-    public Anuncio(int ID, String CPF, String Titulo, String Descricao, String Valor, String CPU, String RAM, String GPU, String SO, String Armazenamento, String Pais, String Cidade, String Estado, String Situacao){
-        this.ID = ID;
-        this.CPF = CPF;
-        this.Titulo = Titulo;
-        this.Descricao = Descricao;
-        this.Valor = Valor;
-        this.CPU = CPU;
-        this.RAM = RAM;
-        this.GPU = GPU;
-        this.SO = SO;
-        this.Armazenamento = Armazenamento;
-        this.Pais = Pais;
-        this.Cidade = Cidade;
-        this.Estado = Estado;
-        this.Situacao = Situacao;
+    public Anuncio(int id, String cpf, String titulo, String descricao, String valor, String cpu, String ram, String gpu, String so, String armazenamento, String pais, String cidade, String estado, String situacao){
+        this.id = id;
+        this.cpf = cpf;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.cpu = cpu;
+        this.ram = ram;
+        this.gpu = gpu;
+        this.so = so;
+        this.armazenamento = armazenamento;
+        this.pais = pais;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.situacao = situacao;
     }
     
     
     public void setID(int iD) {
-        ID = iD;
+        this.id = iD;
     }
     public int getID() {
-        return ID;
+        return id;
     }
     
-    public void setCPF(String cPF) {
-        CPF = cPF;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
-    public String getCPF() {
-        return CPF;
+    public String getCpf() {
+        return cpf;
     }
 
 public void setTitulo(String titulo) {
-    Titulo = titulo;
+    this.titulo = titulo;
 }
 public String getTitulo() {
-    return Titulo;
+    return titulo;
 }
 
 public void setDescricao(String descricao) {
-    Descricao = descricao;
+    this.descricao = descricao;
 }
 public String getDescricao() {
-    return Descricao;
+    return descricao;
 }
 
 public void setValor(String valor) {
-    Valor = valor;
+    this.valor = valor;
 }
 public String getValor() {
-    return Valor;
+    return valor;
 }
 
-public void setCPU(String cPU) {
-    CPU = cPU;
+public void setCpu(String cpu) {
+    this.cpu = cpu;
 }
-public String getCPU() {
-    return CPU;
-}
-
-public void setRAM(String rAM) {
-    RAM = rAM;
-}
-public String getRAM() {
-    return RAM;
+public String getCpu() {
+    return cpu;
 }
 
-public void setGPU(String gPU) {
-    GPU = gPU;
+public void setRam(String ram) {
+    this.ram = ram;
 }
-public String getGPU() {
-    return GPU;
+public String getRam() {
+    return ram;
 }
 
-public void setSO(String sO) {
-    SO = sO;
+public void setGpu(String gpu) {
+    this.gpu = gpu;
 }
-public String getSO() {
-    return SO;
+public String getGpu() {
+    return gpu;
+}
+
+public void setSo(String so) {
+    this.so = so;
+}
+public String getSo() {
+    return so;
 }
 
 public void setArmazenamento(String armazenamento) {
-    Armazenamento = armazenamento;
+    this.armazenamento = armazenamento;
 }
 public String getArmazenamento() {
-    return Armazenamento;
+    return armazenamento;
 }
 
 public void setPais(String pais) {
-    Pais = pais;
+    this.pais = pais;
 }
 public String getPais() {
-    return Pais;
+    return pais;
 }
 
 public void setCidade(String cidade) {
-    Cidade = cidade;
+    this.cidade = cidade;
 }
 public String getCidade() {
-    return Cidade;
+    return cidade;
 }
 
 public void setEstado(String estado) {
-    Estado = estado;
+    this.estado = estado;
 }
 public String getEstado() {
-    return Estado;
+    return estado;
 }
 
 public void setSituacao(String situacao) {
-    Situacao = situacao;
+    this.situacao = situacao;
 }
 public String getSituacao() {
-    return Situacao;
+    return situacao;
 }
 
 }
