@@ -3,127 +3,127 @@ package netdesk;
 import java.util.*;
 
 class Usuario {
-    private String CPF;
-    private String Nome;
-    private Date DataNasc;
-    private String Username;
-    private String Senha;
-    private String Email;
-    private String Cidade;
-    private String Estado;
-    private String Pais;
-    private int Avaliacao;
+    private String cpf;
+    private String nome;
+    private Date dataNasc;
+    private String username;
+    private String senha;
+    private String email;
+    private String cidade;
+    private String estado;
+    private String pais;
+    private int avaliacao;
 
     public Usuario() {
-        CPF = "";
-        Nome = "";
-        DataNasc = null;
-        Username = "";
-        Senha = "";
-        Email = "";
-        Cidade = "";
-        Estado = "";
-        Pais = "";
-        Avaliacao = 0;
+        cpf = "";
+        nome = "";
+        dataNasc = null;
+        username = "";
+        senha = "";
+        email = "";
+        cidade = "";
+        estado = "";
+        pais = "";
+        avaliacao = 0;
     }
 
-    public Usuario(String CPF, String Nome, Date DataNasc, String Username, String Senha, String Email, String Cidade,
-            String Estado, String Pais, int Avaliacao) {
-        this.CPF = CPF;
-        this.Nome = Nome;
-        this.DataNasc = DataNasc;
-        this.Username = Username;
-        this.Senha = Senha;
-        this.Email = Email;
-        this.Cidade = Cidade;
-        this.Estado = Estado;
-        this.Pais = Pais;
-        this.Avaliacao = Avaliacao;
+    public Usuario(String cpf, String nome, Date dataNasc, String Username, String senha, String email, String cidade,
+            String estado, String pais, int avaliacao) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.dataNasc = dataNasc;
+        this.username = Username;
+        this.senha = senha;
+        this.email = email;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.pais = pais;
+        this.avaliacao = avaliacao;
     }
 
-    public void setCPF(String cPF) {
-        if (CPF.length() > 11) {
-            System.out.println("Erro: CPF n„o pode ter mais que 11 caracteres.");
-        } else if (CPF.length() < 11) {
-            System.out.println("Erro: CPF n„o pode ter menos que 11 caracteres.");
+    public void setCpf(String cPF) {
+        if (cpf.length() > 11) {
+            System.out.println("Erro: CPF n√£o pode ter mais que 11 caracteres.");
+        } else if (cpf.length() < 11) {
+            System.out.println("Erro: CPF n√£o pode ter menos que 11 caracteres.");
         } else {
-            this.CPF = cPF;
+            this.cpf = cPF;
         }
     }
 
-    public String getCPF() {
-        return CPF;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setNome(String nome) {
-        Nome = nome;
+    public void setNome(String Nome) {
+        this.nome = Nome;
     }
 
     public String getNome() {
-        return Nome;
+        return nome;
     }
 
-    public void setDataNasc(Date dataNasc) {
-        DataNasc = dataNasc;
+    public void setDataNasc(Date DataNasc) {
+        this.dataNasc = DataNasc;
     }
 
     public Date getDataNasc() {
-        return DataNasc;
+        return dataNasc;
     }
 
-    public void setUsername(String username) {
-        Username = username;
+    public void setUsername(String Username) {
+        this.username = Username;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
-    public void setSenha(String senha) {
-        Senha = senha;
+    public void setSenha(String Senha) {
+        this.senha = Senha;
     }
 
     public String getSenha() {
-        return Senha;
+        return senha;
     }
 
-    public void setEmail(String email) {
-        Email = email;
+    public void setEmail(String Email) {
+        this.email = Email;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
-    public void setCidade(String cidade) {
-        Cidade = cidade;
+    public void setCidade(String Cidade) {
+        this.cidade = Cidade;
     }
 
     public String getCidade() {
-        return Cidade;
+        return cidade;
     }
 
     public void setEstado(String estado) {
-        Estado = estado;
+        this.estado = estado;
     }
 
     public String getEstado() {
-        return Estado;
+        return estado;
     }
 
     public void setPais(String pais) {
-        Pais = pais;
+        this.pais = pais;
     }
 
     public String getPais() {
-        return Pais;
+        return pais;
     }
 
     public void setAvaliacao(int avaliacao) {
-        Avaliacao = avaliacao;
+        this.avaliacao = avaliacao;
     }
 
     public int getAvaliacao() {
-        return Avaliacao;
+        return avaliacao;
     }
 }
