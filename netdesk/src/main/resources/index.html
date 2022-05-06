@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous"
+        />
+        <script src="https://kit.fontawesome.com/0cc1b7e656.js" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="index.css" type="text/css" />
+        <script src="script/index.js" defer></script>
+
+        <title>Netdesk</title>
+    </head>
+    <body>
+        <nav class="nav" style="padding: 0px 15px 0px 15px">
+            <div>
+                <img src="imgs/NetdeskLogo.png" alt="" class="logo" />
+            </div>
+            <div class="mainMenu" style="width: 40%">
+                <ul class="menuUl">
+                    <a href="index.html">Página Inicial</a>
+                    <a href="signUp.html">Criar Conta</a>
+                    <a href="login.html">Login</a>
+                    <a href="anunciar.html">Anunciar</a>
+                </ul>
+            </div>
+        </nav>
+
+        <section class="main">
+            <main class="mainClass">
+                <div class="pesquisaDiv">
+                    <div class="pesquisaTextDiv">
+                        <div class="fullLabelContainer">
+                            <div class="labelContainer" id="labelContainer">
+                                <input class="inputC inputL" id="pesquisaInput" type="text" placeholder=" " required />
+                                <label id="label" for="pesquisaInput"> Pesquisar </label>
+                            </div>
+                            <a onclick="pesquisar()" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="anunciosDiv"></div>
+                <div class="pageNumbersDiv">
+                    <div onclick="movePages()" id="" class="pageNumbers">
+                        <span>&LT;</span>
+                    </div>
+                    <div onclick="newPage(this)" id="1" class="pageNumbers">
+                        <span>1</span>
+                    </div>
+                    <div onclick="newPage(this)" id="2" class="pageNumbers">
+                        <span>2</span>
+                    </div>
+                    <div onclick="newPage(this)" id="3" class="pageNumbers">
+                        <span>3</span>
+                    </div>
+                    <div onclick="newPage(this)" id="4" class="pageNumbers">
+                        <span>4</span>
+                    </div>
+                    <div onclick="newPage(this)" id="5" class="pageNumbers">
+                        <span>5</span>
+                    </div>
+                    <div onclick="movePages()" id="" class="pageNumbers">
+                        <span>&GT;</span>
+                    </div>
+                </div>
+            </main>
+        </section>
+
+        <section class="footer">
+            <footer>
+                <div>
+                    <p>PUC Minas - Trabalho Interdisciplinar II - 2022</p>
+                </div>
+            </footer>
+        </section>
+    </body>
+</html>

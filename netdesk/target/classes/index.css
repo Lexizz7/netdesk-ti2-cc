@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+h1,h2,h3,h4,h5,p,a, button, span, input, select, label{
+    font-family: 'Poppins', sans-serif !important;
+    color: black;
+}
+
+body{
+    background-color: #E5E9F2 !important;
+    margin: 0px;
+}
+
+html,body{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #3A9AFF;
+    z-index: 99;
+}
+
+.menuUl{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    margin: 20px 0px 20px 0px !important;
+    width: 100%;
+}
+
+nav ul{
+    list-style:none;
+}
+
+nav ul a{
+    text-decoration: none;
+    color: #E5E9F2;
+}
+
+nav ul a:hover{
+    color: #E5E9F2;
+}
+
+.logo{
+    max-height: 50px;
+}
+
+
+/*********************************************************************************************************************************/
+
+
+.main{
+    height: 100%;
+    width: 100%;
+    margin-top: 90px;
+    display: flex;
+    justify-content: center;
+}
+
+main{
+    width: 75%;
+}
+
+.pesquisaDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.pesquisaTextDiv{
+    width: 50%;
+    background-color: #3A9AFF;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.fa-magnifying-glass{
+    transition: all 0.2s ease;
+    color: #505050;
+}
+
+.fa-magnifying-glass:hover{
+    color: black;
+}
+
+.fullLabelContainer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.fullLabelContainer i{
+    font-size: 1.6rem;
+}
+
+.fullLabelContainer a:hover{
+    color:#505050;
+}
+
+.anunciosDiv{
+    margin-top: 20px;
+}
+
+.anuncio{
+    margin-top: 20px;
+}
+
+.componentsLogo{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+}
+
+.componentsLogo img{
+    width: 100%;
+}
+
+.anuncio{
+    display: flex;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.anuncio:hover{
+    transform: scale(1.05, 1.05);
+    box-shadow: 0px 8px 12px 3px #696969;
+}
+
+.anunciosDiv a{
+    text-decoration: none;
+}
+
+.anunciosDiv a:hover{
+    text-decoration: none !important;
+    color: black !important;
+}
+
+.textAnuncio{
+    padding: 10px;
+}
+
+.pageNumbersDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.pageNumbers{
+    border: 2px solid rgb(65, 65, 65);
+    border-radius: 5px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/********************************************************************************************************************/
+
+
+#labelContainer{
+    background-color: #e0e0e0;
+    border-bottom: 2px solid #696969;
+    margin: 2.5px;
+    height: 46px;
+    padding: 0px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    width: 90%;
+}
+
+#labelContainer:hover{
+    border-bottom: 2px solid #505050;
+}
+
+#labelContainer:hover, #labelContainer:hover .inputC{
+    background-color: #dbdbdb;
+}
+
+#labelContainer:focus-within{
+    background-color: #d6d6d6;
+    border-bottom: 2px solid #3A9AFF;
+}
+
+#labelContainer:focus-within .inputC{
+    background-color: #d6d6d6;
+}
+
+#labelContainer:focus-within #label{
+    font-size: 0.8rem;
+    color: #3A9AFF;
+    top: 3px;
+}
+
+.inputC:not(:placeholder-shown) + #label{
+    font-size: 0.8rem;
+    top: 3px !important;
+}
+
+#label{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transition: all 0.2s ease;
+}
+
+.inputC{
+    border: none;
+    background-color: #e0e0e0;
+    outline: 0;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#commentTextarea{
+    overflow: hidden;
+    resize: vertical;
+}
+
+
+/************************** FIM INPUT ************************************************************************************************/
+
+footer{
+    background-color: #3A9AFF;
+    bottom: 0px;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+footer p{
+    margin: 12px;
+    text-align: center;
+    color: #E5E9F2;
+}

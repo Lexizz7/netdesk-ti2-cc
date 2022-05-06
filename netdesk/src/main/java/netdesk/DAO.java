@@ -1,6 +1,7 @@
 package netdesk;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 public class DAO {
 	private Connection conexao;
@@ -50,12 +51,15 @@ public class DAO {
 		boolean status = false;
 		try {
 			Statement st = conexao.createStatement();
+			String dataNascString = new SimpleDateFormat("yyyy-MM-dd").format(usuario.getDataNasc());
+
 			st.executeUpdate(
-					"INSERT INTO usuario (cpf, nome, datanasc, username, senha, email, cidade, estado, pais, avaliacao) "
-							+ "VALUES (" + usuario.getCPF() + ", '" + usuario.getNome() + "', " + usuario.getDataNasc()
-							+ ", '" + usuario.getUsername() + "', '" + usuario.getSenha() + "', " + usuario.getEmail()
-							+ ", '" + usuario.getCidade() + "', '" + usuario.getEstado() + "', '" + usuario.getPais()
+					"INSERT INTO usuario (cpf, nome, datanasc, username, senha, email, cidade, pais, estado, avaliacao) "
+							+ "VALUES (" + usuario.getCpf() + ", '" + usuario.getNome() + "', '" + dataNascString
+							+ "', '" + usuario.getUsername() + "', '" + usuario.getSenha() + "', '" + usuario.getEmail()
+							+ "', '" + usuario.getCidade() + "', '" + usuario.getPais() + "', '" + usuario.getEstado()
 							+ "', " + usuario.getAvaliacao() + ")");
+
 			st.close();
 			status = true;
 		} catch (SQLException u) {
@@ -131,6 +135,32 @@ public class DAO {
 		return resposta;
 	}
 
+	public Usuario loginUsuario(String username, String senha) {
+		Usuario resposta = new Usuario();
+		try {
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery(
+					"SELECT * FROM usuario WHERE username = '" + username + "' AND senha = '" + senha + "'");
+			if (rs.next()) {
+				resposta = new Usuario(
+						rs.getString("cpf"),
+						rs.getString("nome"),
+						rs.getDate("datanasc"),
+						rs.getString("username"),
+						rs.getString("senha"),
+						rs.getString("email"),
+						rs.getString("cidade"),
+						rs.getString("estado"),
+						rs.getString("pais"),
+						rs.getInt("avaliacao"));
+			}
+			st.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		return resposta;
+	}
+
 	// ----------------------------------------------------------------------------------------------------------------------------------
 	public Anuncio[] getAllAnuncios() {
 		Anuncio[] anuncios = null;
@@ -169,25 +199,32 @@ public class DAO {
 	}
 
 	public Anuncio getAnuncio(int id) {
-		Statement st = conexao.createStatement();
-		String sql = "SELECT * FROM anuncio WHERE id = " + id;
-		ResultSet rs = st.executeQuery(sql);
-		Anuncio temp = new Anuncio(
-				rs.getInt("id"),
-				rs.getString("cpf"),
-				rs.getString("titulo"),
-				rs.getString("descricao"),
-				rs.getString("valor"),
-				rs.getString("cpu"),
-				rs.getString("ram"),
-				rs.getString("gpu"),
-				rs.getString("so"),
-				rs.getString("armazenamento"),
-				rs.getString("pais"),
-				rs.getString("cidade"),
-				rs.getString("estado"),
-				rs.getString("situacao"));
-		return temp;
+		Anuncio resposta = new Anuncio();
+		try {
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM anuncio WHERE id = " + id);
+			if (rs.next()) {
+				resposta = new Anuncio(
+						rs.getInt("id"),
+						rs.getString("cpf"),
+						rs.getString("titulo"),
+						rs.getString("descricao"),
+						rs.getString("valor"),
+						rs.getString("cpu"),
+						rs.getString("ram"),
+						rs.getString("gpu"),
+						rs.getString("so"),
+						rs.getString("armazenamento"),
+						rs.getString("pais"),
+						rs.getString("cidade"),
+						rs.getString("estado"),
+						rs.getString("situacao"));
+			}
+			st.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		return resposta;
 	}
 
 	public boolean inserirAnuncio(Anuncio anuncio) {

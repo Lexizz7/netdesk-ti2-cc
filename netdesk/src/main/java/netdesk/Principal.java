@@ -19,10 +19,16 @@ public class Principal {
 		
 		after((Filter) (request, response) -> {
             response.header("Access-Control-Allow-Origin", "*");
-            response.header("Access-Control-Allow-Methods", "GET");
+            response.header("Access-Control-Allow-Methods", "GET, POST");
         });
 		
 		get("/getAllAnuncios", (request, response) -> Service.getAllAnuncios());
+
+		get("/getAnuncioById/:id", (request, response) -> Service.getAnuncioById(request, response));
+
+		post("/login", (request, response) -> Service.login(request, response));
+
+		post("/cadastrar", (request, response) -> Service.register(request, response));
 		
 		dao.close();
 	}
