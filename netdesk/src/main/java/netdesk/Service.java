@@ -91,15 +91,12 @@ public class Service {
             String username = (String) body.get("username");
             String senha = (String) body.get("senha");
             String email = (String) body.get("email");
-            String cidade = (String) body.get("cidade");
-            String estado = (String) body.get("estado");
-            String pais = (String) body.get("pais");
             int avaliacao = 0;
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date dataNasc = sdf.parse(dataNascString);
 
-            Usuario usuario = new Usuario(cpf, nome, dataNasc, username, senha, email, cidade, estado, pais, avaliacao);
+            Usuario usuario = new Usuario(cpf, nome, dataNasc, username, senha, email, "", "", "", avaliacao);
 
             dao.inserirUsuario(usuario);
 
@@ -121,10 +118,25 @@ public class Service {
         try {
             JSONObject body = (JSONObject) new JSONParser().parse(bodyJSON);
 
-            String username = (String) body.get("username");
+            String login = (String) body.get("login");
             String senha = (String) body.get("senha");
+            String tipo = (String) body.get("tipo");
 
-            Usuario usuario = dao.loginUsuario(username, senha);
+            Usuario usuario;
+            switch (tipo) {
+                case "email":
+                    usuario = dao.loginUsuarioEmail(login, senha);
+                    break;
+                case "cpf":
+                    usuario = dao.loginUsuarioCPF(login, senha);
+                    break;
+                case "usuario":
+                    usuario = dao.loginUsuario(login, senha);
+                    break;
+                default:
+                    usuario = dao.loginUsuario(login, senha);
+                    break;
+            }
 
             // parse date
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -155,5 +167,41 @@ public class Service {
         dao.close();
 
         return "{\"msg\":\"Usuario não encontrado!\"}";
+    }
+
+    public static String searchAnuncio(Request request, Response response) {
+        DAO dao = new DAO();
+        dao.conectar();
+
+        String titulo = request.params(":title");
+        int valor = Integer.parseInt(request.params(":valor"));
+
+        Anuncio[] anuncios = dao.pesquisarAnuncio(titulo, valor);
+        JSONArray anuncioListJSON = new JSONArray();
+
+        if (anuncios.length > 0) {
+            for (Anuncio anuncio : anuncios) {
+                JSONObject anuncioDetails = new JSONObject();
+                anuncioDetails.put("id", anuncio.getID());
+                anuncioDetails.put("cpf", anuncio.getCpf());
+                anuncioDetails.put("titulo", anuncio.getTitulo());
+                anuncioDetails.put("descricao", anuncio.getDescricao());
+                anuncioDetails.put("valor", anuncio.getValor());
+                anuncioDetails.put("cpu", anuncio.getCpu());
+                anuncioDetails.put("ram", anuncio.getRam());
+                anuncioDetails.put("gpu", anuncio.getGpu());
+                anuncioDetails.put("so", anuncio.getSo());
+                anuncioDetails.put("armazenamento", anuncio.getArmazenamento());
+                anuncioDetails.put("pais", anuncio.getPais());
+                anuncioDetails.put("cidade", anuncio.getCidade());
+                anuncioDetails.put("estado", anuncio.getEstado());
+                anuncioDetails.put("situacao", anuncio.getSituacao());
+
+                anuncioListJSON.add(anuncioDetails);
+            }
+        }
+        dao.close();
+
+        return anuncioListJSON.toJSONString();
     }
 }

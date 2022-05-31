@@ -161,13 +161,66 @@ public class DAO {
 		return resposta;
 	}
 
+	public Usuario loginUsuarioEmail(String email, String senha) {
+		Usuario resposta = new Usuario();
+		try {
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery(
+					"SELECT * FROM usuario WHERE email = '" + email + "' AND senha = '" + senha + "'");
+			if (rs.next()) {
+				resposta = new Usuario(
+						rs.getString("cpf"),
+						rs.getString("nome"),
+						rs.getDate("datanasc"),
+						rs.getString("username"),
+						rs.getString("senha"),
+						rs.getString("email"),
+						rs.getString("cidade"),
+						rs.getString("estado"),
+						rs.getString("pais"),
+						rs.getInt("avaliacao"));
+			}
+			st.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		return resposta;
+	}
+
+	public Usuario loginUsuarioCPF(String CPF, String senha) {
+		Usuario resposta = new Usuario();
+		try {
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery(
+					"SELECT * FROM usuario WHERE cpf = '" + CPF + "' AND senha = '" + senha + "'");
+			if (rs.next()) {
+				resposta = new Usuario(
+						rs.getString("cpf"),
+						rs.getString("nome"),
+						rs.getDate("datanasc"),
+						rs.getString("username"),
+						rs.getString("senha"),
+						rs.getString("email"),
+						rs.getString("cidade"),
+						rs.getString("estado"),
+						rs.getString("pais"),
+						rs.getInt("avaliacao"));
+			}
+			st.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		return resposta;
+	}
+
 	// ----------------------------------------------------------------------------------------------------------------------------------
 	public Anuncio[] getAllAnuncios() {
 		Anuncio[] anuncios = null;
 
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM anuncio");
+			ResultSet rs = st.executeQuery(
+					"SELECT * FROM anuncio");
 			if (rs.next()) {
 				rs.last();
 				anuncios = new Anuncio[rs.getRow()];
@@ -179,7 +232,7 @@ public class DAO {
 							rs.getString("cpf"),
 							rs.getString("titulo"),
 							rs.getString("descricao"),
-							rs.getString("valor"),
+							rs.getDouble("valor"),
 							rs.getString("cpu"),
 							rs.getString("ram"),
 							rs.getString("gpu"),
@@ -209,7 +262,7 @@ public class DAO {
 						rs.getString("cpf"),
 						rs.getString("titulo"),
 						rs.getString("descricao"),
-						rs.getString("valor"),
+						rs.getDouble("valor"),
 						rs.getString("cpu"),
 						rs.getString("ram"),
 						rs.getString("gpu"),
@@ -233,9 +286,9 @@ public class DAO {
 			Statement st = conexao.createStatement();
 			st.executeUpdate(
 					"INSERT INTO anuncio (id, cpf, titulo, descricao, valor, gpu, ram, cpu, so, armazenamento, pais, cidade, estado, situacao) "
-							+ "VALUES (" + anuncio.getID() + ", '" + anuncio.getCPF() + "', '" + anuncio.getTitulo()
-							+ "', '" + anuncio.getDescricao() + "', '" + anuncio.getValor() + "', '" + anuncio.getGPU()
-							+ "', '" + anuncio.getRAM() + "', '" + anuncio.getCPU() + "', '" + anuncio.getSO() + "', '"
+							+ "VALUES (" + anuncio.getID() + ", '" + anuncio.getCpf() + "', '" + anuncio.getTitulo()
+							+ "', '" + anuncio.getDescricao() + "', '" + anuncio.getValor() + "', '" + anuncio.getGpu()
+							+ "', '" + anuncio.getRam() + "', '" + anuncio.getCpu() + "', '" + anuncio.getSo() + "', '"
 							+ anuncio.getArmazenamento() + "', '" + anuncio.getPais() + "', '" + anuncio.getCidade()
 							+ "', '" + anuncio.getEstado() + "', '" + anuncio.getSituacao() + "')");
 			st.close();
@@ -251,8 +304,8 @@ public class DAO {
 		try {
 			Statement st = conexao.createStatement();
 			String sql = "UPDATE anuncio SET titulo = '" + anuncio.getTitulo() + "', descricao = '"
-					+ anuncio.getDescricao() + "', valor = '" + anuncio.getValor() + "', gpu = '" + anuncio.getGPU()
-					+ "', ram = '" + anuncio.getRAM() + "', cpu = '" + anuncio.getCPU() + "', so = '" + anuncio.getSO()
+					+ anuncio.getDescricao() + "', valor = '" + anuncio.getValor() + "', gpu = '" + anuncio.getGpu()
+					+ "', ram = '" + anuncio.getRam() + "', cpu = '" + anuncio.getCpu() + "', so = '" + anuncio.getSo()
 					+ "', armazenamento = '" + anuncio.getArmazenamento() + "', pais = '" + anuncio.getPais()
 					+ "', cidade = '" + anuncio.getCidade() + "', estado = '" + anuncio.getEstado() + "', situacao = '"
 					+ anuncio.getSituacao() + "' WHERE id = " + id + " AND cpf = " + cpf;
@@ -277,5 +330,80 @@ public class DAO {
 			throw new RuntimeException(u);
 		}
 		return status;
+	}
+
+	public Anuncio[] pesquisarAnuncio(String titulo, double valor) {
+		Anuncio[] anuncios = null;
+
+		if (valor > 0) {
+			try {
+				Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				ResultSet rs = st.executeQuery(
+						"SELECT * FROM anuncio WHERE unaccent(LOWER(titulo)) LIKE unaccent(LOWER('%" + titulo
+								+ "%')) AND valor <= " + valor);
+				if (rs.next()) {
+					rs.last();
+					anuncios = new Anuncio[rs.getRow()];
+					rs.beforeFirst();
+
+					for (int i = 0; rs.next(); i++) {
+						anuncios[i] = new Anuncio(
+								rs.getInt("id"),
+								rs.getString("cpf"),
+								rs.getString("titulo"),
+								rs.getString("descricao"),
+								rs.getDouble("valor"),
+								rs.getString("cpu"),
+								rs.getString("ram"),
+								rs.getString("gpu"),
+								rs.getString("so"),
+								rs.getString("armazenamento"),
+								rs.getString("pais"),
+								rs.getString("cidade"),
+								rs.getString("estado"),
+								rs.getString("situacao"));
+					}
+				}
+				st.close();
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+			return anuncios;
+		} else {
+			try {
+				Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+				ResultSet rs = st.executeQuery(
+						"SELECT * FROM anuncio WHERE unaccent(LOWER(titulo)) LIKE unaccent(LOWER('%" + titulo + "%'))");
+
+				if (rs.next()) {
+					rs.last();
+					anuncios = new Anuncio[rs.getRow()];
+					rs.beforeFirst();
+
+					for (int i = 0; rs.next(); i++) {
+						anuncios[i] = new Anuncio(
+								rs.getInt("id"),
+								rs.getString("cpf"),
+								rs.getString("titulo"),
+								rs.getString("descricao"),
+								rs.getDouble("valor"),
+								rs.getString("cpu"),
+								rs.getString("ram"),
+								rs.getString("gpu"),
+								rs.getString("so"),
+								rs.getString("armazenamento"),
+								rs.getString("pais"),
+								rs.getString("cidade"),
+								rs.getString("estado"),
+								rs.getString("situacao"));
+					}
+				}
+				st.close();
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
+			return anuncios;
+		}
 	}
 }

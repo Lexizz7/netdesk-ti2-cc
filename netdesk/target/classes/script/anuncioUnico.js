@@ -11,3 +11,5 @@ function removeFixedFooter() {
 }
 
 window.onload = removeFixedFooter;
+
+// Popular anúncio com dados reais
