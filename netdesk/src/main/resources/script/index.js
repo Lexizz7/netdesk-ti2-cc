@@ -1,24 +1,45 @@
-function loadPageNumbers() {}
-
-function newPage(e) {
-    window.location.href = `index.html#${e.id}`;
-}
-
-window.onload = loadPageNumbers;
+const anuncioPorPage = 10;
 
 // Listar anúncios na página inicial
 const loadAnuncios = () => {
-    fetch("http://localhost:3001/getAllAnuncios")
+    let orderBy = document.querySelector("#orderBySelect").value;
+    let order = document.querySelector("#orderSelect").value;
+
+    if (orderBy === "") orderBy = "id";
+    else if (orderBy === "data") orderBy = "id";
+    else if (orderBy === "nome") orderBy = "titulo";
+    else if (orderBy === "preco") orderBy = "valor";
+
+    if (order === "") order = "ASC";
+    else if (orderBy === "ASC") order = "ASC";
+    else if (order === "DESC") order = "DESC";
+
+    fetch(`http://localhost:3001/getAllAnuncios/${orderBy}/${order}`)
         .then((response) => response.json())
         .then((data) => {
+            //pagination
+            const activePage = Number(window.location.hash.split("#")[1]) || 1;
+            const pageNumbersDiv = document.querySelector(".pageNumbersDiv");
+            pageNumbersDiv.innerHTML = "";
+            const pageNumbers = Math.ceil(data.length / anuncioPorPage);
+            for (let i = 0; i < pageNumbers; i++) {
+                const pageNumber = document.createElement("span");
+                pageNumber.className = "pageNumbers";
+                pageNumber.innerHTML = i + 1;
+                pageNumber.setAttribute("onclick", `newPage(${i})`);
+                pageNumbersDiv.appendChild(pageNumber);
+            }
             const anunciosDiv = document.querySelector(".anunciosDiv");
             anunciosDiv.innerHTML = "";
-            console.log(data);
-            data.forEach((anuncio) => {
+            for (let i = (activePage - 1) * anuncioPorPage; i < activePage * anuncioPorPage; i++) {
+                if (data[i] === undefined) {
+                    break;
+                }
                 const link = document.createElement("a");
-                link.setAttribute("href", `anuncioUnico.html#${anuncio.id}`);
+                link.setAttribute("href", `anuncioUnico.html#${data[i].id}`);
+
                 let img = "";
-                switch (anuncio.so) {
+                switch (data[i].so) {
                     case "Windows":
                         img = "imgs/logo/windows.png";
                         break;
@@ -39,56 +60,111 @@ const loadAnuncios = () => {
                         <img src="${img}" alt="" />
                     </div>
                     <div class="textAnuncio">
-                        <h5>${anuncio.titulo}</h5>
-                        <p>Descrição: ${anuncio.descricao}</p>
-                        <p>Valor: R$${anuncio.valor}</p>
+                        <h5>${data[i].titulo}</h5>
+                        <p>Descrição: ${data[i].descricao}</p>
+                        <p>Valor: R$${data[i].valor}</p>
                     </div>
                 </div>
             `;
 
                 anunciosDiv.appendChild(link);
-            });
+            }
         });
 };
+
+const newPage = (page) => {
+    window.location.hash = page + 1;
+    pesquisar();
+};
+
 if (window.location.href.indexOf("index.html") > -1) {
     loadAnuncios();
 }
 
 const pesquisar = () => {
-    const pesquisa = document.querySelector("#pesquisaInput").value;
+    let pesquisa = document.querySelector("#pesquisaInput").value;
+    const valor = parseFloat(document.querySelector("#valorMaxInput").value) || 0;
     const anunciosDiv = document.querySelector(".anunciosDiv");
     anunciosDiv.innerHTML = "Carregando...";
     if (pesquisa === "") {
+        pesquisa = "*";
+    }
+    if (pesquisa === "*" && valor === 0) {
         return loadAnuncios();
     }
-    fetch(`http://localhost:3001/pesquisarAnuncio/${pesquisa}/0`)
+
+    let orderBy = document.querySelector("#orderBySelect").value;
+    let order = document.querySelector("#orderSelect").value;
+
+    if (orderBy === "") orderBy = "id";
+    else if (orderBy === "data") orderBy = "id";
+    else if (orderBy === "nome") orderBy = "titulo";
+    else if (orderBy === "preco") orderBy = "valor";
+
+    if (order === "") order = "ASC";
+    else if (orderBy === "ASC") order = "ASC";
+    else if (order === "DESC") order = "DESC";
+
+    fetch(`http://localhost:3001/pesquisarAnuncio/${pesquisa}/${valor}/${orderBy}/${order}`)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
-            anunciosDiv.innerHTML = "";
             if (data.length === 0) {
                 anunciosDiv.innerHTML = "Nenhum resultado encontrado";
                 return;
             }
-            data.forEach((anuncio) => {
+
+            //pagination
+            const activePage = Number(window.location.hash.split("#")[1]) || 1;
+            const pageNumbersDiv = document.querySelector(".pageNumbersDiv");
+            pageNumbersDiv.innerHTML = "";
+            const pageNumbers = Math.ceil(data.length / anuncioPorPage);
+            for (let i = 0; i < pageNumbers; i++) {
+                const pageNumber = document.createElement("span");
+                pageNumber.className = "pageNumbers";
+                pageNumber.innerHTML = i + 1;
+                pageNumber.setAttribute("onclick", `newPage(${i})`);
+                pageNumbersDiv.appendChild(pageNumber);
+            }
+            const anunciosDiv = document.querySelector(".anunciosDiv");
+            anunciosDiv.innerHTML = "";
+            for (let i = (activePage - 1) * anuncioPorPage; i < activePage * anuncioPorPage; i++) {
+                if (data[i] === undefined) {
+                    break;
+                }
                 const link = document.createElement("a");
-                link.setAttribute("href", `anuncioUnico.html#${anuncio.id}`);
+                link.setAttribute("href", `anuncioUnico.html#${data[i].id}`);
+
+                let img = "";
+                switch (data[i].so) {
+                    case "Windows":
+                        img = "imgs/logo/windows.png";
+                        break;
+                    case "Linux":
+                        img = "imgs/logo/linux.svg";
+                        break;
+                    case "Ubuntu":
+                        img = "imgs/logo/ubuntu.png";
+                        break;
+                    default:
+                        img = "imgs/NetdeskLogo.png";
+                        break;
+                }
 
                 link.innerHTML = `
-                    <div class="anuncio">
-                        <div class="componentsLogo">
-                            <img src="imgs/NetdeskLogo.png" alt="" />
-                        </div>
-                        <div class="textAnuncio">
-                            <h5>${anuncio.titulo}</h5>
-                            <p>Descrição: ${anuncio.descricao}</p>
-                            <p>Valor: R$${anuncio.valor}</p>
-                        </div>
+                <div class="anuncio">
+                    <div class="componentsLogo">
+                        <img src="${img}" alt="" />
                     </div>
-                `;
+                    <div class="textAnuncio">
+                        <h5>${data[i].titulo}</h5>
+                        <p>Descrição: ${data[i].descricao}</p>
+                        <p>Valor: R$${data[i].valor}</p>
+                    </div>
+                </div>
+            `;
 
                 anunciosDiv.appendChild(link);
-            });
+            }
         });
 };
 
@@ -117,7 +193,7 @@ const updateHeader = () => {
                 <ul class="menuUl">
                     <a href="index.html">Página Inicial</a>
                     <a href="anunciar.html">Anunciar</a>
-                    <a href="perfil.html">${user.username}</a>
+                    <a href="Profile.html">${user.username}</a>
                 </ul>
             </div>
         `;

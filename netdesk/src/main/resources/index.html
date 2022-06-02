@@ -37,39 +37,43 @@
             <main class="mainClass">
                 <div class="pesquisaDiv">
                     <div class="pesquisaTextDiv">
-                        <div class="fullLabelContainer">
-                            <div class="labelContainer" id="labelContainer">
-                                <input class="inputC inputL" id="pesquisaInput" type="text" placeholder=" " onchange="pesquisar()" required />
-                                <label id="label" for="pesquisaInput"> Pesquisar </label>
+                        <div style="background-color: #3a9aff; border-radius: 10px; padding: 10px">
+                            <div class="fullLabelContainer">
+                                <div class="labelContainer" id="labelContainer">
+                                    <input class="inputC inputL" id="pesquisaInput" type="text" placeholder=" " onchange="pesquisar()" required />
+                                    <label id="label" for="pesquisaInput"> Pesquisar </label>
+                                </div>
+                                <a onclick="pesquisar()" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
                             </div>
-                            <a onclick="pesquisar()" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                            <div class="fullLabelContainer" style="width: max-content">
+                                <div class="labelContainer" id="labelContainer">
+                                    <input class="inputC inputL" id="valorMaxInput" type="number" placeholder=" " min="1" onchange="pesquisar()" required />
+                                    <label id="label" for="valorMaxInput"> Valor Máximo </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order" style="width: max-content; display: flex; justify-content: space-around; margin-top: 16px">
+                            <div style="width: max-content" class="labelContainer" id="labelContainer">
+                                <select class="inputC inputL" id="orderBySelect" onchange="pesquisar()">
+                                    <option value="data">Data</option>
+                                    <option value="nome">Nome</option>
+                                    <option value="preco">Preço</option>
+                                </select>
+                                <label id="label" for="orderBySelect"> Ordenar </label>
+                            </div>
+                            <div style="width: max-content" class="labelContainer" id="labelContainer">
+                                <select class="inputC inputL" id="orderSelect" onchange="pesquisar()">
+                                    <option value="ASC">Crescente</option>
+                                    <option value="DESC">Decrescente</option>
+                                </select>
+                                <label id="label" for="orderSelect"> Fluxo </label>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="anunciosDiv"></div>
-                <div class="pageNumbersDiv">
-                    <div onclick="movePages()" id="" class="pageNumbers">
-                        <span>&LT;</span>
-                    </div>
-                    <div onclick="newPage(this)" id="1" class="pageNumbers">
-                        <span>1</span>
-                    </div>
-                    <div onclick="newPage(this)" id="2" class="pageNumbers">
-                        <span>2</span>
-                    </div>
-                    <div onclick="newPage(this)" id="3" class="pageNumbers">
-                        <span>3</span>
-                    </div>
-                    <div onclick="newPage(this)" id="4" class="pageNumbers">
-                        <span>4</span>
-                    </div>
-                    <div onclick="newPage(this)" id="5" class="pageNumbers">
-                        <span>5</span>
-                    </div>
-                    <div onclick="movePages()" id="" class="pageNumbers">
-                        <span>&GT;</span>
-                    </div>
-                </div>
+                <div class="pageNumbersDiv"></div>
             </main>
         </section>
 

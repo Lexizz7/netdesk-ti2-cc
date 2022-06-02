@@ -21,7 +21,7 @@ const loadAnuncio = () => {
             const anuncio = data;
             const mainClass = document.querySelector(".mainClass");
             mainClass.innerHTML = "";
-
+            const isMyAnuncio = anuncio.cpf === JSON.parse(localStorage.getItem("user")).cpf;
             fetch(`http://localhost:3001/getUsuarioByCpf/${anuncio.cpf}`)
                 .then((response) => response.json())
                 .then((data) => {
@@ -47,9 +47,27 @@ const loadAnuncio = () => {
                     <div>
                         <button id="btn" class="btn" onclick="alugar()">Alugar</button>
                     </div>
+                    ${
+                        isMyAnuncio
+                            ? `<div>
+                                <button id="btn" class="btn" onclick="excluir()">Excluir</button>
+                            </div>`
+                            : ""
+                    }
                 </div>
             `;
                 });
         });
 };
 loadAnuncio();
+
+const excluir = () => {
+    const id = window.location.hash.substr(1);
+    const cpf = JSON.parse(localStorage.getItem("user")).cpf;
+    fetch(`http://localhost:3001/excluirAnuncio/${id}/${cpf}`)
+        .then((response) => response.json())
+        .then((data) => {
+            alert(data);
+            window.location.href = "index.html";
+        });
+};

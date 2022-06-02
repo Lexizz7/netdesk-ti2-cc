@@ -42,11 +42,12 @@ public class Principal {
 
         Principal.apply();
 
-        get("/getAllAnuncios", (request, response) -> Service.getAllAnuncios());
+        get("/getAllAnuncios/:orderBy/:order", (request, response) -> Service.getAllAnuncios(request, response));
 
         get("/getAnuncioById/:id", (request, response) -> Service.getAnuncioById(request, response));
 
-        get("pesquisarAnuncio/:title/:valor", (request, response) -> Service.searchAnuncio(request, response));
+        get("pesquisarAnuncio/:title/:valor/:orderBy/:order",
+                (request, response) -> Service.searchAnuncio(request, response));
 
         get("/getUsuarioByCpf/:cpf", (request, response) -> Service.getUsuarioByCpf(request, response));
 
@@ -55,6 +56,8 @@ public class Principal {
         post("/cadastrar/", (request, response) -> Service.register(request, response));
 
         post("/cadastrarAnuncio/", (request, response) -> Service.registerAnuncio(request, response));
+
+        get("/excluirAnuncio/:id/:cpf", (request, response) -> Service.excluirAnuncio(request, response));
 
         dao.close();
     }

@@ -14,11 +14,12 @@ import spark.*;
 @SuppressWarnings("unchecked")
 public class Service {
 
-    public static String getAllAnuncios() {
+    public static String getAllAnuncios(Request request, Response response) {
         DAO dao = new DAO();
         dao.conectar();
-
-        Anuncio[] anuncios = dao.getAllAnuncios();
+        String orderBy = request.params(":orderBy");
+        String order = request.params(":order");
+        Anuncio[] anuncios = dao.getAllAnuncios(orderBy, order);
         JSONArray anuncioListJSON = new JSONArray();
 
         if (anuncios != null && anuncios.length > 0) {
@@ -175,8 +176,10 @@ public class Service {
 
         String titulo = request.params(":title");
         int valor = Integer.parseInt(request.params(":valor"));
+        String orderBy = request.params(":orderBy");
+        String order = request.params(":order");
 
-        Anuncio[] anuncios = dao.pesquisarAnuncio(titulo, valor);
+        Anuncio[] anuncios = dao.pesquisarAnuncio(titulo, valor, orderBy, order);
         JSONArray anuncioListJSON = new JSONArray();
 
         if (anuncios != null && anuncios.length > 0) {
@@ -277,5 +280,20 @@ public class Service {
         dao.close();
 
         return "{\"msg\":\"Usuario não encontrado!\"}";
+    }
+
+    // excluir anuncio
+    public static String excluirAnuncio(Request request, Response response) {
+        DAO dao = new DAO();
+        dao.conectar();
+
+        int id = Integer.parseInt(request.params(":id"));
+        String cpf = request.params(":cpf");
+
+        dao.excluirAnuncio(id, cpf);
+
+        dao.close();
+
+        return "{\"msg\":\"Anuncio excluido com sucesso!\"}";
     }
 }

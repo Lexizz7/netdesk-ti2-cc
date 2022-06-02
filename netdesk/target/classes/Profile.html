@@ -14,9 +14,7 @@
     <script src="https://kit.fontawesome.com/0cc1b7e656.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="index.css" type="text/css" />
-    <link rel="stylesheet" href="profile.css" type="text/css">
-    <script src="script/login.js" defer></script>
-    <script src="script/editPosts.js" defer></script>
+    <script src="scripts/checkLogin" defer></script>
 
     <title>Perfil</title>
 </head>
@@ -35,100 +33,6 @@
         </div>
     </nav>
 
-
-    <section class="main">
-        <main class="mainClass">
-            <div class="anunciosProfile">
-                <h3>Anuncios</h3>
-                <div id="anunciosProfileDiv">
-                    <div class="anuncio">
-                        <div class="componentsDiv">
-                            <div class="componentsLogo">
-                                <img src="imgs/NetdeskLogo.png" alt="" />
-                            </div>
-                            <div class="textAnuncio">
-                                <h5>${anuncio.titulo}</h5>
-                                <p>Descrição: ${anuncio.descricao}</p>
-                                <p>Valor: R$${anuncio.valor}</p>
-                            </div>
-                        </div>
-
-                        <div class="editMenuDiv">
-                            <div class="threePoints 0">
-                                <p onclick="excluir()">Excluir</p>
-                                <p onclick="editar()">Editar</p>
-                            </div>
-                            <div class="0" id="containerDeleteMenu">
-                                <input class="deleteMenu" type="checkbox" id="0">
-                                <label class="0" onclick="change(this)" id="deleteLabel" for="0">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="anuncio">
-                        <div class="componentsDiv">
-                            <div class="componentsLogo">
-                                <img src="imgs/NetdeskLogo.png" alt="" />
-                            </div>
-                            <div class="textAnuncio">
-                                <h5>${anuncio.titulo}</h5>
-                                <p>Descrição: ${anuncio.descricao}</p>
-                                <p>Valor: R$${anuncio.valor}</p>
-                            </div>
-                        </div>
-
-                        <div class="editMenuDiv">
-                            <div class="threePoints 1">
-                                <p onclick="excluir()">Excluir</p>
-                                <p onclick="editar()">Editar</p>
-                            </div>
-                            <div class="1" id="containerDeleteMenu">
-                                <input class="deleteMenu" type="checkbox" id="1">
-                                <label class="1" onclick="change(this)" id="deleteLabel" for="1">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="anuncio">
-                        <div class="componentsDiv">
-                            <div class="componentsLogo">
-                                <img src="imgs/NetdeskLogo.png" alt="" />
-                            </div>
-                            <div class="textAnuncio">
-                                <h5>${anuncio.titulo}</h5>
-                                <p>Descrição: ${anuncio.descricao}</p>
-                                <p>Valor: R$${anuncio.valor}</p>
-                            </div>
-                        </div>
-
-                        <div class="editMenuDiv">
-                            <div class="threePoints ${i}">
-                                <p onclick="excluir()">Excluir</p>
-                                <p onclick="editar()">Editar</p>
-                            </div>
-                            <div class="${i}" id="containerDeleteMenu">
-                                <input class="deleteMenu" type="checkbox" id="${i}">
-                                <label class="${i}" onclick="change(this)" id="deleteLabel" for="${i}">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </section>
-
-
-    <section class="footer">
-        <footer>
-            <div>
-                <p>PUC Minas - Trabalho Interdisciplinar II - 2022</p>
-            </div>
-        </footer>
-    </section>
 
 </body>
 </html>

@@ -214,13 +214,13 @@ public class DAO {
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------------------------
-	public Anuncio[] getAllAnuncios() {
+	public Anuncio[] getAllAnuncios(String orderBy, String order) {
 		Anuncio[] anuncios = null;
 
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = st.executeQuery(
-					"SELECT * FROM anuncio");
+					"SELECT * FROM anuncio ORDER BY " + orderBy + " " + order);
 			if (rs.next()) {
 				rs.last();
 				anuncios = new Anuncio[rs.getRow()];
@@ -322,7 +322,7 @@ public class DAO {
 		boolean status = false;
 		try {
 			Statement st = conexao.createStatement();
-			String sql = "DELETE FROM anuncio WHERE id = " + id + " AND cpf = " + cpf;
+			String sql = "DELETE FROM anuncio WHERE id = '" + id + "' AND cpf = '" + cpf + "'";
 			st.executeUpdate(sql);
 			st.close();
 			status = true;
@@ -348,78 +348,53 @@ public class DAO {
 		return id;
 	}
 
-	public Anuncio[] pesquisarAnuncio(String titulo, double valor) {
+	public Anuncio[] pesquisarAnuncio(String titulo, double valor, String orderBy, String order) {
 		Anuncio[] anuncios = null;
 
-		if (valor > 0) {
-			try {
-				Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-				ResultSet rs = st.executeQuery(
-						"SELECT * FROM anuncio WHERE unaccent(LOWER(titulo)) LIKE unaccent(LOWER('%" + titulo
-								+ "%')) AND valor <= " + valor);
-				if (rs.next()) {
-					rs.last();
-					anuncios = new Anuncio[rs.getRow()];
-					rs.beforeFirst();
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			String sql;
 
-					for (int i = 0; rs.next(); i++) {
-						anuncios[i] = new Anuncio(
-								rs.getInt("id"),
-								rs.getString("cpf"),
-								rs.getString("titulo"),
-								rs.getString("descricao"),
-								rs.getDouble("valor"),
-								rs.getString("cpu"),
-								rs.getString("ram"),
-								rs.getString("gpu"),
-								rs.getString("so"),
-								rs.getString("armazenamento"),
-								rs.getString("pais"),
-								rs.getString("cidade"),
-								rs.getString("estado"),
-								rs.getString("situacao"));
-					}
+			if (valor > 0 && titulo.length() > 1)
+				sql = "SELECT * FROM anuncio WHERE unaccent(LOWER(titulo)) LIKE unaccent(LOWER('%" + titulo
+						+ "%')) AND valor <= " + valor + " ORDER BY " + orderBy + " " + order;
+			else if (valor > 0)
+				sql = "SELECT * FROM anuncio WHERE valor <= " + valor + " ORDER BY " + orderBy + " " + order;
+			else if (titulo.length() > 1)
+				sql = "SELECT * FROM anuncio WHERE unaccent(LOWER(titulo)) LIKE unaccent(LOWER('%" + titulo + "%'))"
+						+ " ORDER BY "
+						+ orderBy + " " + order;
+			else
+				sql = "SELECT * FROM anuncio" + " ORDER BY " + orderBy + " " + order;
+
+			ResultSet rs = st.executeQuery(sql);
+			if (rs.next()) {
+				rs.last();
+				anuncios = new Anuncio[rs.getRow()];
+				rs.beforeFirst();
+
+				for (int i = 0; rs.next(); i++) {
+					anuncios[i] = new Anuncio(
+							rs.getInt("id"),
+							rs.getString("cpf"),
+							rs.getString("titulo"),
+							rs.getString("descricao"),
+							rs.getDouble("valor"),
+							rs.getString("cpu"),
+							rs.getString("ram"),
+							rs.getString("gpu"),
+							rs.getString("so"),
+							rs.getString("armazenamento"),
+							rs.getString("pais"),
+							rs.getString("cidade"),
+							rs.getString("estado"),
+							rs.getString("situacao"));
 				}
-				st.close();
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
 			}
-			return anuncios;
-		} else {
-			try {
-				Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
-				ResultSet rs = st.executeQuery(
-						"SELECT * FROM anuncio WHERE unaccent(LOWER(titulo)) LIKE unaccent(LOWER('%" + titulo + "%'))");
-
-				if (rs.next()) {
-					rs.last();
-					anuncios = new Anuncio[rs.getRow()];
-					rs.beforeFirst();
-
-					for (int i = 0; rs.next(); i++) {
-						anuncios[i] = new Anuncio(
-								rs.getInt("id"),
-								rs.getString("cpf"),
-								rs.getString("titulo"),
-								rs.getString("descricao"),
-								rs.getDouble("valor"),
-								rs.getString("cpu"),
-								rs.getString("ram"),
-								rs.getString("gpu"),
-								rs.getString("so"),
-								rs.getString("armazenamento"),
-								rs.getString("pais"),
-								rs.getString("cidade"),
-								rs.getString("estado"),
-								rs.getString("situacao"));
-					}
-				}
-				st.close();
-			} catch (Exception e) {
-				System.err.println(e.getMessage());
-			}
-			return anuncios;
+			st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
+		return anuncios;
 	}
 }

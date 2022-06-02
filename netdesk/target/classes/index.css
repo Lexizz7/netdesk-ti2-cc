@@ -87,7 +87,6 @@ main {
 
 .pesquisaTextDiv {
     width: 50%;
-    background-color: #3a9aff;
     padding: 10px;
     border-radius: 20px;
     margin-bottom: 20px;
@@ -118,8 +117,9 @@ main {
 
 .anunciosDiv {
     margin-top: 20px;
+    margin: auto;
+    width: max-content;
 }
-
 .anuncio {
     margin-top: 20px;
 }
@@ -138,7 +138,6 @@ main {
 
 .anuncio {
     display: flex;
-    justify-content: center;
     transition: all 0.3s ease;
 }
 
