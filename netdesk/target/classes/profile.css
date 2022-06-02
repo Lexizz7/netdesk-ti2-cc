@@ -1,0 +1,53 @@
+h3 {
+    text-align: center;
+}
+
+.anuncio{
+    display: flex;
+    justify-content: space-between;
+}
+
+.componentsDiv{
+    display: flex;
+}
+
+.threePoints{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    background-color: #3A9AFF;
+    top: 0px;
+    right: 0px;
+    height: 0px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+#deleteLabel{
+    padding: 10px;
+}
+
+.fa-ellipsis-h{
+    cursor: pointer;
+    z-index: 99;
+}
+
+.editMenuDiv{
+    display: flex;
+}
+
+.deleteMenu{
+    display: none;
+}
+
+.CDO{
+    padding: 15px;
+    height: 80%;
+    box-shadow: 0px 8px 12px 3px #696969;
+}
+
+.threePoints p{
+    cursor: pointer;
+}
