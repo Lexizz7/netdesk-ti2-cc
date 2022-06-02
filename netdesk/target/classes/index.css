@@ -126,7 +126,7 @@ main{
 
 .anuncio{
     display: flex;
-    justify-content: center;
+    /*justify-content: center;*/
     transition: all 0.3s ease;
 }
 
