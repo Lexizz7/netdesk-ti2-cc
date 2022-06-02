@@ -170,3 +170,49 @@ const login = () => {
             });
     }
 };
+
+const isLogged = () => {
+    const user = localStorage.getItem("user");
+    if (user === null) {
+        return false;
+    }
+    return true;
+};
+
+const Logout = () => {
+    localStorage.removeItem("user");
+    window.location.href = "index.html";
+};
+
+const updateHeader = () => {
+    const header = document.querySelector(".nav");
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (isLogged()) {
+        header.innerHTML = `
+            <div>
+                <img src="imgs/NetdeskLogo.png" alt="" class="logo" />
+            </div>
+            <div class="mainMenu" style="width: 40%">
+                <ul class="menuUl">
+                    <a href="index.html">Página Inicial</a>
+                    <a href="anunciar.html">Anunciar</a>
+                    <a href="perfil.html">${user.username}</a>
+                </ul>
+            </div>
+        `;
+    } else {
+        header.innerHTML = `
+            <div>
+                <img src="imgs/NetdeskLogo.png" alt="" class="logo" />
+            </div>
+            <div class="mainMenu" style="width: 40%">
+                <ul class="menuUl">
+                    <a href="index.html">Página Inicial</a>
+                    <a href="signUp.html">Criar Conta</a>
+                    <a href="login.html">Login</a>
+                </ul>
+            </div>
+        `;
+    }
+};
+updateHeader();

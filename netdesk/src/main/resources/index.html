@@ -39,7 +39,7 @@
                     <div class="pesquisaTextDiv">
                         <div class="fullLabelContainer">
                             <div class="labelContainer" id="labelContainer">
-                                <input class="inputC inputL" id="pesquisaInput" type="text" placeholder=" " required />
+                                <input class="inputC inputL" id="pesquisaInput" type="text" placeholder=" " onchange="pesquisar()" required />
                                 <label id="label" for="pesquisaInput"> Pesquisar </label>
                             </div>
                             <a onclick="pesquisar()" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
@@ -80,5 +80,21 @@
                 </div>
             </footer>
         </section>
+
+        <script type="text/javascript">
+            (function (I, L, T, i, c, k, s) {
+                if (I.iticks) return;
+                I.iticks = { host: c, settings: s, clientId: k, cdn: L, queue: [] };
+                var h = T.head || T.documentElement;
+                var e = T.createElement(i);
+                var l = I.location;
+                e.async = true;
+                e.src = (L || c) + "/client/inject-v2.min.js";
+                h.insertBefore(e, h.firstChild);
+                I.iticks.call = function (a, b) {
+                    I.iticks.queue.push([a, b]);
+                };
+            })(window, "https://cdn-v1.intelliticks.com/prod/common", document, "script", "https://app.intelliticks.com", "Kr7vPiDSCRyPEdX7u_c", {});
+        </script>
     </body>
 </html>

@@ -21,7 +21,7 @@ public class Service {
         Anuncio[] anuncios = dao.getAllAnuncios();
         JSONArray anuncioListJSON = new JSONArray();
 
-        if (anuncios.length > 0) {
+        if (anuncios != null && anuncios.length > 0) {
             for (Anuncio anuncio : anuncios) {
                 JSONObject anuncioDetails = new JSONObject();
                 anuncioDetails.put("id", anuncio.getID());
@@ -179,7 +179,7 @@ public class Service {
         Anuncio[] anuncios = dao.pesquisarAnuncio(titulo, valor);
         JSONArray anuncioListJSON = new JSONArray();
 
-        if (anuncios.length > 0) {
+        if (anuncios != null && anuncios.length > 0) {
             for (Anuncio anuncio : anuncios) {
                 JSONObject anuncioDetails = new JSONObject();
                 anuncioDetails.put("id", anuncio.getID());
@@ -203,5 +203,79 @@ public class Service {
         dao.close();
 
         return anuncioListJSON.toJSONString();
+    }
+
+    // register anuncio
+    public static String registerAnuncio(Request request, Response response) {
+        DAO dao = new DAO();
+        dao.conectar();
+
+        String bodyJSON = request.body();
+
+        try {
+            JSONObject body = (JSONObject) new JSONParser().parse(bodyJSON);
+
+            String cpf = (String) body.get("cpf");
+            String titulo = (String) body.get("titulo");
+            String descricao = (String) body.get("descricao");
+            double valor = Double.parseDouble((String) body.get("valor"));
+            String cpu = (String) body.get("cpu");
+            String ram = (String) body.get("ram");
+            String gpu = (String) body.get("gpu");
+            String so = (String) body.get("so");
+            String armazenamento = (String) body.get("armazenamento");
+            String pais = (String) body.get("pais");
+            String cidade = (String) body.get("cidade");
+            String estado = (String) body.get("estado");
+            String situacao = (String) body.get("situacao");
+
+            Anuncio anuncio = new Anuncio(dao.getNextID(), cpf, titulo, descricao, valor, cpu, ram, gpu, so,
+                    armazenamento, pais, cidade,
+                    estado, situacao);
+
+            dao.inserirAnuncio(anuncio);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        dao.close();
+
+        return "{\"msg\":\"Anuncio cadastrado com sucesso!\"}";
+    }
+
+    // getUsuarioByCpf
+    public static String getUsuarioByCpf(Request request, Response response) {
+        DAO dao = new DAO();
+        dao.conectar();
+
+        String cpf = request.params(":cpf");
+
+        Usuario usuario = dao.getUsuario(cpf);
+
+        // parse date
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dataNascString = sdf.format(usuario.getDataNasc());
+
+        if (usuario.getNome() != "") {
+            JSONObject usuarioDetails = new JSONObject();
+            usuarioDetails.put("cpf", usuario.getCpf());
+            usuarioDetails.put("nome", usuario.getNome());
+            usuarioDetails.put("dataNascimento", dataNascString);
+            usuarioDetails.put("username", usuario.getUsername());
+            usuarioDetails.put("email", usuario.getEmail());
+            usuarioDetails.put("cidade", usuario.getCidade());
+            usuarioDetails.put("estado", usuario.getEstado());
+            usuarioDetails.put("pais", usuario.getPais());
+            usuarioDetails.put("avaliacao", usuario.getAvaliacao());
+
+            dao.close();
+
+            return usuarioDetails.toJSONString();
+        }
+
+        dao.close();
+
+        return "{\"msg\":\"Usuario não encontrado!\"}";
     }
 }

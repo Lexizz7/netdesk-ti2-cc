@@ -36,19 +36,7 @@
         </nav>
 
         <section class="main">
-            <main class="mainClass">
-                <div class="chosenAnuncioDiv">
-                    <h1>Computador i9, GTX 1060 ti</h1>
-                    <div class="chosenAnuncioBorder">
-                        <p>Autor: Artur Kazuo</p>
-                        <p>Descrição: Alugo o meu computador com processador i9, placa de vídeo GTX 1060 ti, 16gb de ram e 1tb de ssd.</p>
-                        <p>Valor: R$100,00 por hora.</p>
-                    </div>
-                    <div>
-                        <button id="btn" class="btn" onclick="alugar()">Alugar</button>
-                    </div>
-                </div>
-            </main>
+            <main class="mainClass"></main>
         </section>
 
         <section class="footer">
@@ -58,5 +46,20 @@
                 </div>
             </footer>
         </section>
+        <script type="text/javascript">
+            (function (I, L, T, i, c, k, s) {
+                if (I.iticks) return;
+                I.iticks = { host: c, settings: s, clientId: k, cdn: L, queue: [] };
+                var h = T.head || T.documentElement;
+                var e = T.createElement(i);
+                var l = I.location;
+                e.async = true;
+                e.src = (L || c) + "/client/inject-v2.min.js";
+                h.insertBefore(e, h.firstChild);
+                I.iticks.call = function (a, b) {
+                    I.iticks.queue.push([a, b]);
+                };
+            })(window, "https://cdn-v1.intelliticks.com/prod/common", document, "script", "https://app.intelliticks.com", "Kr7vPiDSCRyPEdX7u_c", {});
+        </script>
     </body>
 </html>

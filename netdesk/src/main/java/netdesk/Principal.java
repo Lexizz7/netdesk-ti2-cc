@@ -9,13 +9,14 @@ import spark.Request;
 import spark.Response;
 
 public class Principal {
-	
-private static final HashMap<String, String> corsHeaders = new HashMap<String, String>();
-    
+
+    private static final HashMap<String, String> corsHeaders = new HashMap<String, String>();
+
     static {
         corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
         corsHeaders.put("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
-        corsHeaders.put("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
+        corsHeaders.put("Access-Control-Allow-Headers",
+                "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
         corsHeaders.put("Access-Control-Allow-Credentials", "true");
     }
 
@@ -30,27 +31,31 @@ private static final HashMap<String, String> corsHeaders = new HashMap<String, S
         };
         Spark.after(filter);
     }
-	
-	public static void main(String[] args) {
-		
-		DAO dao = new DAO();
-		
-		dao.conectar();
-		
-		port(3001);
-		
-		Principal.apply();
-		
-		get("/getAllAnuncios", (request, response) -> Service.getAllAnuncios());
 
-		get("/getAnuncioById/:id", (request, response) -> Service.getAnuncioById(request, response));
-		
-		get("pesquisarAnuncio/:title/:valor", (request, response) -> Service.searchAnuncio(request, response));
+    public static void main(String[] args) {
 
-		post("/login/", (request, response) -> Service.login(request, response));
+        DAO dao = new DAO();
 
-		post("/cadastrar/", (request, response) -> Service.register(request, response));
-		
-		dao.close();
-	}
+        dao.conectar();
+
+        port(3001);
+
+        Principal.apply();
+
+        get("/getAllAnuncios", (request, response) -> Service.getAllAnuncios());
+
+        get("/getAnuncioById/:id", (request, response) -> Service.getAnuncioById(request, response));
+
+        get("pesquisarAnuncio/:title/:valor", (request, response) -> Service.searchAnuncio(request, response));
+
+        get("/getUsuarioByCpf/:cpf", (request, response) -> Service.getUsuarioByCpf(request, response));
+
+        post("/login/", (request, response) -> Service.login(request, response));
+
+        post("/cadastrar/", (request, response) -> Service.register(request, response));
+
+        post("/cadastrarAnuncio/", (request, response) -> Service.registerAnuncio(request, response));
+
+        dao.close();
+    }
 }

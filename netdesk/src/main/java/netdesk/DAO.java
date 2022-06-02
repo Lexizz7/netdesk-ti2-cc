@@ -114,7 +114,7 @@ public class DAO {
 		Usuario resposta = new Usuario();
 		try {
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM usuario WHERE cpf = " + CPF);
+			ResultSet rs = st.executeQuery("SELECT * FROM usuario WHERE cpf = '" + CPF + "'");
 			if (rs.next()) {
 				resposta = new Usuario(
 						rs.getString("cpf"),
@@ -330,6 +330,22 @@ public class DAO {
 			throw new RuntimeException(u);
 		}
 		return status;
+	}
+
+	public int getNextID() {
+		int id = 0;
+		try {
+			Statement st = conexao.createStatement();
+			ResultSet rs = st.executeQuery("SELECT MAX(id) FROM anuncio");
+			if (rs.next()) {
+				id = rs.getInt(1);
+			}
+			st.close();
+		} catch (SQLException u) {
+			throw new RuntimeException(u);
+		}
+		id++;
+		return id;
 	}
 
 	public Anuncio[] pesquisarAnuncio(String titulo, double valor) {
