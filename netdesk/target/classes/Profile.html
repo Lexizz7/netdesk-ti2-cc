@@ -1,38 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
+        <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous"
         />
-    <script src="https://kit.fontawesome.com/0cc1b7e656.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/0cc1b7e656.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="index.css" type="text/css" />
-    <script src="scripts/checkLogin" defer></script>
+        <link rel="stylesheet" href="index.css" type="text/css" />
+        <link rel="stylesheet" href="profile.css" type="text/css" />
+        <script src="script/profile.js" defer></script>
 
-    <title>Perfil</title>
-</head>
-<body>
-    <nav class="nav" style="padding: 0px 15px 0px 15px">
-        <div>
-            <img src="imgs/NetdeskLogo.png" alt="" class="logo" />
-        </div>
-        <div class="mainMenu" style="width: 40%">
-            <ul class="menuUl">
-                <a href="index.html">Página Inicial</a>
-                <a href="signUp.html">Criar Conta</a>
-                <a href="login.html">Login</a>
-                <a href="anunciar.html">Anunciar</a>
-            </ul>
-        </div>
-    </nav>
+        <title>Perfil</title>
+    </head>
+    <body>
+        <nav class="nav" style="padding: 0px 15px 0px 15px">
+            <div>
+                <img src="imgs/NetdeskLogo.png" alt="" class="logo" />
+            </div>
+            <div class="mainMenu" style="width: 40%">
+                <ul class="menuUl">
+                    <a href="index.html">Página Inicial</a>
+                    <a href="signUp.html">Criar Conta</a>
+                    <a href="login.html">Login</a>
+                    <a href="anunciar.html">Anunciar</a>
+                </ul>
+            </div>
+        </nav>
 
+        <section class="main">
+            <main class="mainClass">
+                <div>
+                    <h3>Sobre a conta</h3>
+                    <div style="width: 100%; display: flex; justify-content: center">
+                        <button id="btn" class="btn signout">Deslogar</button>
+                    </div>
+                </div>
+                <div class="anunciosProfile">
+                    <h3>Meus Anuncios</h3>
+                    <div id="anunciosProfileDiv" style="display: flex; flex-wrap: wrap"></div>
+                </div>
+            </main>
+        </section>
 
-</body>
+        <section class="footer">
+            <footer>
+                <div>
+                    <p>PUC Minas - Trabalho Interdisciplinar II - 2022</p>
+                </div>
+            </footer>
+        </section>
+    </body>
 </html>

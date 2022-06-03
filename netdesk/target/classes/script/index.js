@@ -28,6 +28,10 @@ const loadAnuncios = () => {
                 pageNumber.innerHTML = i + 1;
                 pageNumber.setAttribute("onclick", `newPage(${i})`);
                 pageNumbersDiv.appendChild(pageNumber);
+
+                if (i === activePage - 1) {
+                    pageNumber.classList.add("active");
+                }
             }
             const anunciosDiv = document.querySelector(".anunciosDiv");
             anunciosDiv.innerHTML = "";
@@ -124,8 +128,11 @@ const pesquisar = () => {
                 pageNumber.innerHTML = i + 1;
                 pageNumber.setAttribute("onclick", `newPage(${i})`);
                 pageNumbersDiv.appendChild(pageNumber);
+
+                if (i === activePage - 1) {
+                    pageNumber.classList.add("active");
+                }
             }
-            const anunciosDiv = document.querySelector(".anunciosDiv");
             anunciosDiv.innerHTML = "";
             for (let i = (activePage - 1) * anuncioPorPage; i < activePage * anuncioPorPage; i++) {
                 if (data[i] === undefined) {

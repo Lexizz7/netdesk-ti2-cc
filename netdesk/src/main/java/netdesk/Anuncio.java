@@ -15,6 +15,8 @@ public class Anuncio {
     private String cidade;
     private String estado;
     private String situacao;
+    private String numero;
+    private String link;
 
     public Anuncio() {
         id = -1;
@@ -31,10 +33,13 @@ public class Anuncio {
         cidade = "";
         estado = "";
         situacao = "";
+        numero = "";
+        link = "";
     }
 
     public Anuncio(int id, String cpf, String titulo, String descricao, double valor, String cpu, String ram,
-            String gpu, String so, String armazenamento, String pais, String cidade, String estado, String situacao) {
+            String gpu, String so, String armazenamento, String pais, String cidade, String estado, String situacao,
+            String numero, String link) {
         this.id = id;
         this.cpf = cpf;
         this.titulo = titulo;
@@ -49,6 +54,8 @@ public class Anuncio {
         this.cidade = cidade;
         this.estado = estado;
         this.situacao = situacao;
+        this.numero = numero;
+        this.link = link;
     }
 
     public void setID(int iD) {
@@ -161,6 +168,22 @@ public class Anuncio {
 
     public String getSituacao() {
         return situacao;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getLink() {
+        return link;
     }
 
 }

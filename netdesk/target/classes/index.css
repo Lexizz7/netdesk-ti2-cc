@@ -174,6 +174,10 @@ main {
     justify-content: center;
     cursor: pointer;
 }
+.pageNumbers.active {
+    background-color: #3a9aff;
+    color: white;
+}
 
 /********************************************************************************************************************/
 
@@ -239,7 +243,16 @@ main {
     overflow: hidden;
     resize: vertical;
 }
-
+.iticks-pop-button {
+    background-color: #3a9aff !important;
+}
+.iticks-top-bar,
+.iticks-entry-top-bar {
+    background: #3a9aff !important;
+}
+.user .iticks-message-text {
+    background: #3a9aff !important;
+}
 /************************** FIM INPUT ************************************************************************************************/
 
 footer {

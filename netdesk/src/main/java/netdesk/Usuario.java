@@ -134,9 +134,7 @@ class Usuario {
     }
 
     public void setSenha(String Senha) {
-        if (Senha.length() > 20) {
-            System.out.println("Erro: Senha não pode ter mais que 20 caracteres.");
-        } else if (Senha.length() < 6) {
+        if (Senha.length() < 6) {
             System.out.println("Erro: Senha não pode ter menos que 6 caracteres.");
         } else {
             this.senha = Senha;

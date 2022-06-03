@@ -6,6 +6,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 
 import netdesk.Usuario;
@@ -39,6 +41,8 @@ public class Service {
                 anuncioDetails.put("cidade", anuncio.getCidade());
                 anuncioDetails.put("estado", anuncio.getEstado());
                 anuncioDetails.put("situacao", anuncio.getSituacao());
+                anuncioDetails.put("numero", anuncio.getNumero());
+                anuncioDetails.put("link", anuncio.getLink());
 
                 anuncioListJSON.add(anuncioDetails);
             }
@@ -71,6 +75,8 @@ public class Service {
         anuncioDetails.put("cidade", anuncio.getCidade());
         anuncioDetails.put("estado", anuncio.getEstado());
         anuncioDetails.put("situacao", anuncio.getSituacao());
+        anuncioDetails.put("numero", anuncio.getNumero());
+        anuncioDetails.put("link", anuncio.getLink());
 
         dao.close();
 
@@ -94,6 +100,9 @@ public class Service {
             String email = (String) body.get("email");
             int avaliacao = 0;
 
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(senha.getBytes(), 0, senha.length());
+            senha = new BigInteger(1, m.digest()).toString(16);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date dataNasc = sdf.parse(dataNascString);
 
@@ -122,6 +131,10 @@ public class Service {
             String login = (String) body.get("login");
             String senha = (String) body.get("senha");
             String tipo = (String) body.get("tipo");
+
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(senha.getBytes(), 0, senha.length());
+            senha = new BigInteger(1, m.digest()).toString(16);
 
             Usuario usuario;
             switch (tipo) {
@@ -199,6 +212,8 @@ public class Service {
                 anuncioDetails.put("cidade", anuncio.getCidade());
                 anuncioDetails.put("estado", anuncio.getEstado());
                 anuncioDetails.put("situacao", anuncio.getSituacao());
+                anuncioDetails.put("numero", anuncio.getNumero());
+                anuncioDetails.put("link", anuncio.getLink());
 
                 anuncioListJSON.add(anuncioDetails);
             }
@@ -231,10 +246,12 @@ public class Service {
             String cidade = (String) body.get("cidade");
             String estado = (String) body.get("estado");
             String situacao = (String) body.get("situacao");
+            String numero = (String) body.get("numero");
+            String link = (String) body.get("link");
 
             Anuncio anuncio = new Anuncio(dao.getNextID(), cpf, titulo, descricao, valor, cpu, ram, gpu, so,
                     armazenamento, pais, cidade,
-                    estado, situacao);
+                    estado, situacao, numero, link);
 
             dao.inserirAnuncio(anuncio);
 
@@ -295,5 +312,43 @@ public class Service {
         dao.close();
 
         return "{\"msg\":\"Anuncio excluido com sucesso!\"}";
+    }
+
+    public static String getAnunciosByUsuario(Request request, Response response) {
+        DAO dao = new DAO();
+        dao.conectar();
+
+        String cpf = request.params(":cpf");
+
+        Anuncio[] anuncios = dao.getAnunciosByUsuario(cpf);
+
+        JSONArray anuncioListJSON = new JSONArray();
+
+        if (anuncios != null && anuncios.length > 0) {
+            for (Anuncio anuncio : anuncios) {
+                JSONObject anuncioDetails = new JSONObject();
+                anuncioDetails.put("id", anuncio.getID());
+                anuncioDetails.put("cpf", anuncio.getCpf());
+                anuncioDetails.put("titulo", anuncio.getTitulo());
+                anuncioDetails.put("descricao", anuncio.getDescricao());
+                anuncioDetails.put("valor", anuncio.getValor());
+                anuncioDetails.put("cpu", anuncio.getCpu());
+                anuncioDetails.put("ram", anuncio.getRam());
+                anuncioDetails.put("gpu", anuncio.getGpu());
+                anuncioDetails.put("so", anuncio.getSo());
+                anuncioDetails.put("armazenamento", anuncio.getArmazenamento());
+                anuncioDetails.put("pais", anuncio.getPais());
+                anuncioDetails.put("cidade", anuncio.getCidade());
+                anuncioDetails.put("estado", anuncio.getEstado());
+                anuncioDetails.put("situacao", anuncio.getSituacao());
+                anuncioDetails.put("numero", anuncio.getNumero());
+                anuncioDetails.put("link", anuncio.getLink());
+
+                anuncioListJSON.add(anuncioDetails);
+            }
+        }
+        dao.close();
+
+        return anuncioListJSON.toJSONString();
     }
 }

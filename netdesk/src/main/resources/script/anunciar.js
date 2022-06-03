@@ -39,6 +39,8 @@ const postAnuncio = () => {
     const pais = document.querySelector("#paisInput").value;
     const estado = document.querySelector("#estadoInput").value;
     const cidade = document.querySelector("#cidadeInput").value;
+    const numero = document.querySelector("#numeroInput").value;
+    const link = document.querySelector("#linkInput").value;
 
     if (
         titulo == "" ||
@@ -51,7 +53,8 @@ const postAnuncio = () => {
         armazenamento == "" ||
         pais == "" ||
         estado == "" ||
-        cidade == ""
+        cidade == "" ||
+        (numero == "" && link == "")
     ) {
         alert("Preencha todos os campos!");
         return;
@@ -69,6 +72,8 @@ const postAnuncio = () => {
         estado: estado,
         cidade: cidade,
         cpf: user.cpf,
+        numero: numero,
+        link: link,
     };
 
     const url = "http://localhost:3001/cadastrarAnuncio/";

@@ -241,7 +241,9 @@ public class DAO {
 							rs.getString("pais"),
 							rs.getString("cidade"),
 							rs.getString("estado"),
-							rs.getString("situacao"));
+							rs.getString("situacao"),
+							rs.getString("numero"),
+							rs.getString("link"));
 				}
 			}
 			st.close();
@@ -271,7 +273,9 @@ public class DAO {
 						rs.getString("pais"),
 						rs.getString("cidade"),
 						rs.getString("estado"),
-						rs.getString("situacao"));
+						rs.getString("situacao"),
+						rs.getString("numero"),
+						rs.getString("link"));
 			}
 			st.close();
 		} catch (SQLException u) {
@@ -280,17 +284,59 @@ public class DAO {
 		return resposta;
 	}
 
+	public Anuncio[] getAnunciosByUsuario(String cpf) {
+		Anuncio[] anuncios = null;
+
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery(
+					"SELECT * FROM anuncio WHERE cpf = '" + cpf + "'");
+			if (rs.next()) {
+				rs.last();
+				anuncios = new Anuncio[rs.getRow()];
+				rs.beforeFirst();
+
+				for (int i = 0; rs.next(); i++) {
+					anuncios[i] = new Anuncio(
+							rs.getInt("id"),
+							rs.getString("cpf"),
+							rs.getString("titulo"),
+							rs.getString("descricao"),
+							rs.getDouble("valor"),
+							rs.getString("cpu"),
+							rs.getString("ram"),
+							rs.getString("gpu"),
+							rs.getString("so"),
+							rs.getString("armazenamento"),
+							rs.getString("pais"),
+							rs.getString("cidade"),
+							rs.getString("estado"),
+							rs.getString("situacao"),
+							rs.getString("numero"),
+							rs.getString("link"));
+
+				}
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return anuncios;
+	}
+
 	public boolean inserirAnuncio(Anuncio anuncio) {
 		boolean status = false;
 		try {
 			Statement st = conexao.createStatement();
 			st.executeUpdate(
-					"INSERT INTO anuncio (id, cpf, titulo, descricao, valor, gpu, ram, cpu, so, armazenamento, pais, cidade, estado, situacao) "
+					"INSERT INTO anuncio (id, cpf, titulo, descricao, valor, gpu, ram, cpu, so, armazenamento, pais, cidade, estado, situacao, numero, link) "
 							+ "VALUES (" + anuncio.getID() + ", '" + anuncio.getCpf() + "', '" + anuncio.getTitulo()
 							+ "', '" + anuncio.getDescricao() + "', '" + anuncio.getValor() + "', '" + anuncio.getGpu()
 							+ "', '" + anuncio.getRam() + "', '" + anuncio.getCpu() + "', '" + anuncio.getSo() + "', '"
 							+ anuncio.getArmazenamento() + "', '" + anuncio.getPais() + "', '" + anuncio.getCidade()
-							+ "', '" + anuncio.getEstado() + "', '" + anuncio.getSituacao() + "')");
+							+ "', '" + anuncio.getEstado() + "', '" + anuncio.getSituacao() + "', '"
+							+ anuncio.getNumero()
+							+ "', '" + anuncio.getLink() + "')");
 			st.close();
 			status = true;
 		} catch (SQLException u) {
@@ -388,7 +434,10 @@ public class DAO {
 							rs.getString("pais"),
 							rs.getString("cidade"),
 							rs.getString("estado"),
-							rs.getString("situacao"));
+							rs.getString("situacao"),
+							rs.getString("numero"),
+							rs.getString("link"));
+
 				}
 			}
 			st.close();

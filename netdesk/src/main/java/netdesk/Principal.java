@@ -59,6 +59,8 @@ public class Principal {
 
         get("/excluirAnuncio/:id/:cpf", (request, response) -> Service.excluirAnuncio(request, response));
 
+        get("/getAnunciosByUsuario/:cpf", (request, response) -> Service.getAnunciosByUsuario(request, response));
+
         dao.close();
     }
 }
